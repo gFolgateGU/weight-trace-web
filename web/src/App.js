@@ -1,8 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
-
 import { BrowserRouter, Routes, Route}     from 'react-router-dom';
-import NavBarElement from './components/NavBarElement';
+import NavBar from './components/NavBar';
 
 import Home from './pages';
 import About from './pages/about';
@@ -13,7 +10,7 @@ import Register from './pages/register';
 function App() {
   return (
     <BrowserRouter>
-    <NavBarElement />
+    <NavBar />
     <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About/>} />

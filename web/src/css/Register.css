@@ -1,0 +1,101 @@
+.container {
+  float: center;
+  padding: 4px;
+}
+
+.outro {
+  margin-bottom: 96px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.intro {
+  margin-left: 4px;
+}
+
+.invalid-field {
+  color: rgb(175, 20, 28);
+  display: block;
+}
+
+.form-container {
+  float: center;
+  margin-top: 16px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.rgr-button {
+  width: 100%;
+  padding: 16px;
+  background:rgb(115, 212, 104);
+  cursor: pointer;
+  display: inline-block;
+  border: none;
+}
+
+.rgr-button:hover {
+  background: rgb(38, 175, 20);
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+.tick-mark {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+
+.tick-mark::before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 50%;
+  width: 3px;
+  background-color: rgb(38, 175, 20);
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+}
+
+.tick-mark::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background-color: rgb(38, 175, 20);
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+}
+
+.x-mark::before,
+.x-mark::after {
+  position: absolute;
+  content: '';
+  margin-top: 8px;
+  margin-left: 1.5px;
+  width: 16px;
+  height: 3px; /* cross thickness */
+  background-color: rgb(175, 20, 28);
+}
+
+.x-mark::before {
+  transform: rotate(45deg);
+}
+
+.x-mark::after {
+  transform: rotate(-45deg);
+}
