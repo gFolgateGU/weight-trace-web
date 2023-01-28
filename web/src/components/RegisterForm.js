@@ -1,5 +1,6 @@
 import React from "react";
 import validator from 'validator';
+import axios from 'axios';
 
 export default class Register extends React.Component {
   constructor(props) {
@@ -44,11 +45,7 @@ export default class Register extends React.Component {
     this.setState({passwordVal: password});
   
     const isStrong = (validator.isStrongPassword(password, {
-      minLength: 8,
-      minLowercase: 1,
-      minUppercase: 1,
-      minNumbers: 1,
-      minSymbols: 1}
+      minLength: 8}
     ));
     
     if (isStrong) {
@@ -73,14 +70,38 @@ export default class Register extends React.Component {
     }
   }
 
-  submitForm = () => {
-    alert('Form has been submitted');
+  submitForm = (e) => {   
+    e.preventDefault();
+
+    const emailValid       = this.state.emailValid;
+    const passwordValid    = this.state.passwordValid;
+    const rptPasswordValid = this.state.repeatPasswordValid;
+
+    this.setState({emailError: !emailValid});
+    this.setState({passwordError: !passwordValid});
+    this.setState({repeatPasswordError: !rptPasswordValid});
+
+    if (emailValid && passwordValid && rptPasswordValid)
+    {
+      axios.post('/api/register', {
+        email: this.state.emailVal,
+        password: this.state.passwordVal
+      })
+      .then((response) => {
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        // TODO: Add in HTML banner to display errors in an
+        // appealing format to the user.
+        alert("Error Sending Registration info to Server");
+      })
+    }
   }
 
   render() {
     return (
       <div className='form-container'>
-        <form>
+        <form onSubmit={(e) => this.submitForm(e)}>
           <label for="email"><b>Email</b></label>
           { this.state.emailValid ? 
             <span className="tick-mark"></span> : null
@@ -100,9 +121,8 @@ export default class Register extends React.Component {
           { (!this.state.passwordValid && this.state.passwordSet) ?
             <span className="x-mark"></span> : null
           }
-          <p><i>Hint: Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 digit, and 1 symbol</i></p>
           { this.state.passwordError ?
-            <label for="email" className='invalid-field'>* Password must be at least 6 characters.</label> : null
+            <label for="email" className='invalid-field'>* Password must be at least 8 characters.</label> : null
           }
           <input onChange={(e) => this.validatePassword(e)} type="password" placeholder='Enter Password' />
    
@@ -118,7 +138,7 @@ export default class Register extends React.Component {
           }
           <input onChange={(e) => this.validateRepeatPassword(e)} type="password" placeholder='Repeat Password' />
 
-          <button onClick={this.submitForm} type="submit" className='rgr-button'><b>Register</b></button>
+          <input type="submit" className='rgr-button' value='Register'/>
         </form>
       </div>
     );
