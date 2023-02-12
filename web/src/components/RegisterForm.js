@@ -102,19 +102,19 @@ export default class Register extends React.Component {
     return (
       <div className='form-container'>
         <form onSubmit={(e) => this.submitForm(e)}>
-          <label for="email"><b>Email</b></label>
+          <label htmlFor="email"><b>Email</b></label>
           { this.state.emailValid ? 
             <span className="tick-mark"></span> : null
           }
           { (!this.state.emailValid && this.state.emailSet) ?
             <span className="x-mark"></span> : null
-          }    
+          } 
           { this.state.emailError ?
-            <label for="email" className='invalid-field'>* Please enter a valid email.</label> : null
+            <label htmlFor="email" className='invalid-field'>* Please enter a valid email.</label> : null
           }
           <input onChange={(e) => this.validateEmail(e)} type="text" placeholder='Enter Email'/>
 
-          <label for="password"><b>Password</b></label>
+          <label htmlFor="password"><b>Password</b></label>
           { this.state.passwordValid ? 
             <span className="tick-mark"></span> : null
           }
@@ -122,11 +122,11 @@ export default class Register extends React.Component {
             <span className="x-mark"></span> : null
           }
           { this.state.passwordError ?
-            <label for="email" className='invalid-field'>* Password must be at least 8 characters.</label> : null
+            <label htmlFor="email" className='invalid-field'>* Password must be at least 8 characters.</label> : null
           }
           <input onChange={(e) => this.validatePassword(e)} type="password" placeholder='Enter Password' />
    
-          <label for="repeat"><b>Repeat Password</b></label>
+          <label htmlFor="repeat"><b>Repeat Password</b></label>
           { this.state.repeatPasswordValid ? 
             <span className="tick-mark"></span> : null
           }
@@ -134,7 +134,7 @@ export default class Register extends React.Component {
             <span className="x-mark"></span> : null
           }     
           { this.state.repeatPasswordError ?
-            <label for="email" className='invalid-field'>Passwords do not match.</label> : null
+            <label htmlFor="email" className='invalid-field'>Passwords do not match.</label> : null
           }
           <input onChange={(e) => this.validateRepeatPassword(e)} type="password" placeholder='Repeat Password' />
 
