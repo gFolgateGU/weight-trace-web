@@ -6,17 +6,23 @@ import About from './pages/about';
 import Contact from './pages/contact';
 import Login from './pages/login';
 import Register from './pages/register';
+import WebTokenGen from './components/WebTokenGen';
 
 function App() {
+  
+  // Shared Token Generation Manager for managing
+  // requests to the Backend API.
+  const tokenMgr = new WebTokenGen();
+  
   return (
     <BrowserRouter>
     <NavBar />
     <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About/>} />
+        <Route path='/about' element={<About tokenMgr={tokenMgr} />} />
         <Route path='/contact' element={<Contact/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/register' element={<Register/>} />
+        <Route path='/login' element={<Login tokenMgr={tokenMgr}/>} />
+        <Route path='/register' element={<Register tokenMgr={tokenMgr}/>} />
     </Routes>
     </BrowserRouter>
   );

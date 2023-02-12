@@ -16,6 +16,8 @@ export default class Login extends React.Component {
 
       emailError: false,
       passwordError: false,
+
+      tokenMgr: props.tokenMgr
     };
   }
 
@@ -33,33 +35,32 @@ export default class Login extends React.Component {
     this.setState({passwordVal: password});
   }
 
-  submitForm = () => {  
-    alert("Got it!"); 
-    // axios.post('/api/register', {
-    //   email: this.state.emailVal,
-    //   password: this.state.passwordVal
-    // })
-    // .then((response) => {
-    //   window.location.href = "/login";
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // })
+  submitForm = (e) => {
+    e.preventDefault()
 
-    // TODO: Investigate why form submittal does not always
-    // redirect and we need this line here.
-    // window.location.href = "/login";
+    axios.post('/api/login', {
+      email: this.state.emailVal,
+      password: this.state.passwordVal
+    })
+    .then((response) => {
+      const token = response.data["access_token"];
+      this.state.tokenMgr.storeToken(token);
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("ERROR: Unable to send data to server.");
+    })
   }
 
   render() {
     return (
       <div className='form-container'>
-        <form onSubmit={this.submitForm}>
-          <label for="email"><b>Email</b></label>
-          <input onchange={(e) => this.setEmail(e)} type="text" placeholder='Enter Email'/>
+        <form onSubmit={(e) => this.submitForm(e)}>
+          <label htmlFor="email"><b>Email</b></label>
+          <input onChange={(e) => this.setEmail(e)} type="text" placeholder='Enter Email'/>
 
-          <label for="password"><b>Password</b></label>
-          <input onchange={(e) => this.setPassword(e)} type="password" placeholder='Enter Password' />
+          <label htmlFor="password"><b>Password</b></label>
+          <input onChange={(e) => this.setPassword(e)} type="password" placeholder='Enter Password' />
 
           <input type="submit" className='rgr-button' value='Login'/>
         </form>
