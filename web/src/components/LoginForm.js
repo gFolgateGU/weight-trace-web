@@ -45,6 +45,7 @@ export default class Login extends React.Component {
     .then((response) => {
       const token = response.data["access_token"];
       this.state.tokenMgr.storeToken(token);
+      window.location.href = "/";
     })
     .catch((error) => {
       console.log(error);

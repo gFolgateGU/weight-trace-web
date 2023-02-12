@@ -16,7 +16,7 @@ function App() {
   
   return (
     <BrowserRouter>
-    <NavBar />
+    <NavBar tokenMgr={tokenMgr}/>
     <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About tokenMgr={tokenMgr} />} />

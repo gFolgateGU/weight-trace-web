@@ -6,14 +6,14 @@ export default class WebTokenGen {
   }
 
   clearToken() {
-    window.localStorage.removeItem('token');
+    window.sessionStorage.removeItem('token');
   }
 
   storeToken(token) {
-    window.localStorage.setItem('token', token);
+    window.sessionStorage.setItem('token', token);
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 }
