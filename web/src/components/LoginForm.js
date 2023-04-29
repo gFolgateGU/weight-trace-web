@@ -15,6 +15,8 @@ export default class Login extends React.Component {
       emailError: false,
       passwordError: false,
 
+      loginError: '',
+
       tokenMgr: props.tokenMgr
     };
   }
@@ -66,9 +68,15 @@ export default class Login extends React.Component {
         window.location.href = "/";
       })
       .catch((error) => {
-        console.log(error);
-        alert("ERROR: Unable to send data to server.");
-      })
+        if (error.response.status === 401) {
+          const username = this.state.emailVal;
+          const message = 'Invalid username or password for ' + username;
+          this.setState({ loginError: message});
+        }
+        else {
+          this.setState({ loginError: 'Cannot connect to server. Please try again later.'})
+        }
+      });
     }
   }
 
@@ -94,6 +102,8 @@ export default class Login extends React.Component {
           <input onChange={(e) => this.setPassword(e)} type="password" placeholder='Enter Password' />
 
           <input type="submit" className='rgr-button' value='Login'/>
+
+          { this.state.loginError && <p>{this.state.loginError}</p>}
         </form>
       </div>
     );
