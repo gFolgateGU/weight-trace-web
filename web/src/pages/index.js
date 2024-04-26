@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
   return (
     <div>
-      <h1>ENV VIEW Web (Home Page)</h1>
+      <h1>Strava Calendar Lite (Home Page)</h1>
     </div>
   );
 };
