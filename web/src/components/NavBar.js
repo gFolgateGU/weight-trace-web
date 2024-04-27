@@ -1,5 +1,6 @@
 import React from 'react'
 import '../css/NavBar.css'
+import axios from 'axios'
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -19,6 +20,19 @@ export default class NavBar extends React.Component {
     return true;
   }
   
+  login = async (e) => {
+    e.preventDefault()
+
+    try {
+      // Call the API endpoing for login
+      const response = await axios.get('/api/auth')
+      const auth_url = response.data.auth_url
+      window.location.href = auth_url
+    } catch (error) {
+      console.error('Error logging in: ', error)
+    }
+  }  
+
   logout = (e) => {
     this.state.tokenMgr.clearToken();
     window.location.href="/";
@@ -31,8 +45,7 @@ export default class NavBar extends React.Component {
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
         <div className="login-container">
-          <a href="/login">Login</a>
-          <a href="/register">Register</a>
+          <a href="#" onClick={this.login.bind(this)}>Login</a>
         </div>
       </div>
     );   
