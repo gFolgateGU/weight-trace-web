@@ -17,7 +17,7 @@ function App() {
     <BrowserRouter>
     <NavBar tokenMgr={tokenMgr}/>
     <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home tokenMgr={tokenMgr}/>} />
         <Route path='/about' element={<About tokenMgr={tokenMgr} />} />
         <Route path='/contact' element={<Contact/>} />
         <Route path='/register' element={<Register tokenMgr={tokenMgr}/>} />

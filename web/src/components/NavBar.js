@@ -1,73 +1,80 @@
-import React from 'react'
-import '../css/NavBar.css'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import '../css/NavBar.css';
+import axios from 'axios';
 
-export default class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
+export default function NavBar({ tokenMgr }) {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-    this.state = {
-      tokenMgr: props.tokenMgr,
-      myToken: props.tokenMgr.getToken()
-    };
-  }
+  useEffect(() => {
+    checkUserLoginStatus();
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
 
-  isAuthenticated() {
-    const token = this.state.tokenMgr.getToken();
-    if (token == null) {
-      return false;
-    }
-    return true;
-  }
-  
-  login = async (e) => {
-    e.preventDefault()
-
+  const checkUserLoginStatus = async () => {
     try {
-      // Call the API endpoing for login
-      const response = await axios.get('/api/auth')
-      const auth_url = response.data.auth_url
-      window.location.href = auth_url
+      const curToken = tokenMgr.getToken();
+      if (curToken == 'logged_in') {
+        setUserLoggedIn(true);
+      } else {
+        const response = await axios.get('/api/isauth');
+        if (response.data && 'token' in response.data) {
+          const token = response.data.token;
+          console.log(token)
+          tokenMgr.storeToken(token);
+          setUserLoggedIn(true);
+        } else {
+          setUserLoggedIn(false);
+        }
+      }
     } catch (error) {
-      console.error('Error logging in: ', error)
+      console.error('Error fetching data:', error);
+      setUserLoggedIn(false);
     }
-  }  
+  };
 
-  logout = (e) => {
-    this.state.tokenMgr.clearToken();
-    window.location.href="/";
-  }  
-
-  noAuthNavBar() {
-    return (
-      <div className="topnav">
-        <a className="active" href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <div className="login-container">
-          <a href="#" onClick={this.login.bind(this)}>Login</a>
-        </div>
-      </div>
-    );   
-  }
-
-  authNavBar() {
-    return (
-      <div className="topnav">
-        <a className="active" href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <div className="login-container">
-          <a href="/" onClick={(e) => this.logout(e)}>Logout</a>
-        </div>
-      </div>
-    );   
-  }
-  
-  render() {
-    if (this.isAuthenticated()) {
-      return this.authNavBar();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get('/api/auth');
+      const authUrl = response.data.auth_url;
+      window.location.href = authUrl;
+    } catch (error) {
+      console.error('Error logging in:', error);
     }
-    return this.noAuthNavBar();
-  }
+  };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.get('/api/logout');
+      tokenMgr.clearToken();
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
+  const renderAuthLinks = () => (
+    <div className="navbar-item has-dropdown is-hoverable">
+      {/* Render profile/logout links */}
+      <a href="/" onClick={handleLogout}>Logout</a>
+    </div>
+  );
+
+  const renderNoAuthLinks = () => (
+    <div className="navbar-item has-dropdown is-hoverable">
+      {/* Render login/register links */}
+      <a href="#" onClick={handleLogin}>Login</a>
+    </div>
+  );
+
+  return (
+    <div className="topnav">
+      <a className="active" href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <div className="login-container">
+        {userLoggedIn ? renderAuthLinks() : renderNoAuthLinks()}
+      </div>
+    </div>
+  );
 }
