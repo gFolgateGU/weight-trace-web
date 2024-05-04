@@ -31,20 +31,13 @@ const Home = ({ tokenMgr }) => {
       }
     };
 
-    const sayHello = async () => {
-      console.log("this is it.")
-    }
-
     fetchData();
-    sayHello();
   }, [tokenMgr]);
   
   return (
     <div>
-      <h1>Strava Calendar Lite (Home Page)</h1>
       {isAuthenticated ? (
         <div>
-          <p>Welcome, authenticated user!</p>
           <Profile token={tokenMgr.getToken()} />
           {/* Add authenticated user content here */}
         </div>
