@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+
+import Profile from '../components/Profile'
   
 const Home = ({ tokenMgr }) => {
   
@@ -43,6 +45,7 @@ const Home = ({ tokenMgr }) => {
       {isAuthenticated ? (
         <div>
           <p>Welcome, authenticated user!</p>
+          <Profile token={tokenMgr.getToken()} />
           {/* Add authenticated user content here */}
         </div>
       ) : (
