@@ -10,7 +10,7 @@ const Home = ({ tokenMgr }) => {
     const fetchData = async () => {
       try {
         const curToken = tokenMgr.getToken();
-        if (curToken == 'logged_in') {
+        if (curToken === 'logged_in') {
           setIsAuthenticated(true);
         } else {
           const response = await axios.get('/api/isauth');
@@ -29,7 +29,12 @@ const Home = ({ tokenMgr }) => {
       }
     };
 
+    const sayHello = async () => {
+      console.log("this is it.")
+    }
+
     fetchData();
+    sayHello();
   }, [tokenMgr]);
   
   return (

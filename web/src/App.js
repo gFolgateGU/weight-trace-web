@@ -4,7 +4,6 @@ import NavBar from './components/NavBar';
 import Home from './pages';
 import About from './pages/about';
 import Contact from './pages/contact';
-import Register from './pages/register';
 import WebTokenGen from './components/WebTokenGen';
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
         <Route path='/' element={<Home tokenMgr={tokenMgr}/>} />
         <Route path='/about' element={<About tokenMgr={tokenMgr} />} />
         <Route path='/contact' element={<Contact/>} />
-        <Route path='/register' element={<Register tokenMgr={tokenMgr}/>} />
     </Routes>
     </BrowserRouter>
   );

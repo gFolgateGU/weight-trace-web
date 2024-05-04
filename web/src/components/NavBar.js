@@ -6,13 +6,17 @@ export default function NavBar({ tokenMgr }) {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    checkUserLoginStatus();
-  }, []); // Empty dependency array ensures this effect runs only once on component mount
+    const checkStatus = async () => {
+      await checkUserLoginStatus();
+    }
+
+    checkStatus();
+  }); // Empty dependency array ensures this effect runs only once on component mount
 
   const checkUserLoginStatus = async () => {
     try {
       const curToken = tokenMgr.getToken();
-      if (curToken == 'logged_in') {
+      if (curToken === 'logged_in') {
         setUserLoggedIn(true);
       } else {
         const response = await axios.get('/api/isauth');
@@ -62,7 +66,7 @@ export default function NavBar({ tokenMgr }) {
 
   const renderNoAuthLinks = () => (
     <div className="navbar-item has-dropdown is-hoverable">
-      {/* Render login/register links */}
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a href="#" onClick={handleLogin}>Login</a>
     </div>
   );
