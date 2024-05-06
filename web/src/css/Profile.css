@@ -1,55 +1,65 @@
-.image-component {
-    border: 10px red;
-    padding-top: 5%;
-    padding-left: 5%;
-}
-
-.front-image {
-    position: absolute;
-    z-index: 1;
-    border: 2px solid gray;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Add a shadow to the image */
-}
-
-.profile-info {
-    padding-left: 5%;
-}
-
-.profile-name { 
-    padding: 0px;
-}
-
-.profile-specific {
-    padding-left: 2.5%;
-}
-
-.profile-name h1 {
-    margin: 0;
-}
-.profile-specific h5 {
-    margin: 1%;
-    padding: 5;
+body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
 }
 
 .profile-container {
+    position: relative; /* Positioning context for the black div */
+    text-align: center; /* Align contents in the center */
+}
+
+.black-div1 {
     width: 100%;
-    height: 200px;
-    position: relative;
+    background-color: black;
+    height: 20px
 }
 
 .black-div {
     background-color: black;
-    width: 100%;
-    height: 75%;
-    position: absolute;
-    left: 0;
-    z-index: 0;
+    position: absolute; /* Position the black div absolutely */
+    top: 20px; /* Position it at the top of the profile container */
+    width: 100%; /* Take up the entire width of the screen */
+    height: 50%; /* Take up half of the screen height */
+    z-index: 1; /* Push the black div in front of other content */
 }
 
-.white-div {
-    background-color: white;
-    width: 100%;
-    height: 25%;
-    position: absolute;
-    left: 0;
+.profile-image {
+    width: 200px; /* Adjust size as needed */
+    height: 200px; /* Adjust size as needed */
+    border-radius: 50%; /* Make the image round */
+    position: relative; /* Positioning context for the profile image */
+    z-index: 2; /* Push the profile image in front of the black div */
+}
+
+.profile-name {
+    font-size: 24px; /* Adjust font size as needed */
+    font-weight: bold;
+    z-index: 2; /* Ensure the name is above the black div */
+    position: relative; /* Ensure stacking context with profile image */
+}
+
+/* Styles for the container div */
+.data-div {
+    display: flex;
+}
+
+/* Styles for the graph div */
+.graph-div {
+    width: 50%; /* Take up 50% of the container width */
+    height: 100vh; /* Take up full height of the viewport */
+    padding: 20px; /* Add padding */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Styles for the text div */
+.text-div {
+    width: 50%; /* Take up 50% of the container width */
+    padding: 20px; /* Add padding */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Additional styles for the paragraph */
+.text-div p {
+    margin: 0; /* Remove default margin */
+    font-size: 16px; /* Adjust font size as needed */
 }
