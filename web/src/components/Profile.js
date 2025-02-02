@@ -12,13 +12,22 @@ const Profile = ({ token }) => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('')
     const [imagePath, setImagePath] = useState('');
+    const [activityStats, setActivityStats] = useState({
+        all_run_totals: { distance: 0 },
+        all_ride_totals: { distance: 0 },
+        all_swim_totals: { distance: 0 }
+    });
 
     const data = {
         labels: ['Running', 'Cycling', 'Swimming'],
         datasets: [
             {
                 label: 'Percentage ( % ) of Training',
-                data: [12, 19, 3],
+                data: [
+                    activityStats.all_run_totals.distance / (activityStats.all_run_totals.distance + activityStats.all_ride_totals.distance + activityStats.all_swim_totals.distance),
+                    activityStats.all_ride_totals.distance / (activityStats.all_run_totals.distance + activityStats.all_ride_totals.distance + activityStats.all_swim_totals.distance),
+                    activityStats.all_swim_totals.distance / (activityStats.all_run_totals.distance + activityStats.all_ride_totals.distance + activityStats.all_swim_totals.distance),
+                ],
                 backgroundColor: [
                     '#000080',
                     '#800000',
@@ -39,9 +48,11 @@ const Profile = ({ token }) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/api/athlete');
+                console.log(response.data)
                 if (response.data) {
                     if ('error' in response.data) {
                         console.log("Failed to load data for the athlete.")
+                        console.log(response.data)
                     }
                     else {
                         setFirstName(response.data["firstname"]);
@@ -49,6 +60,7 @@ const Profile = ({ token }) => {
                         setCity(response.data["city"]);
                         setState(response.data["state"]);
                         setImagePath(response.data["profile"]);
+                        setActivityStats(response.data["activity_stats"])
                     }
                 }
                 if (!response.ok) {
@@ -70,15 +82,14 @@ const Profile = ({ token }) => {
                 { <div>
                     {imagePath && <img src={imagePath} class="profile-image" alt="Description of the image" />}
                 </div> }
-                <div class="profile-name">Grant Folgate</div>
-                <div class="profile-name">Baltimore, Maryland</div>
+                <div class="profile-name">{firstname} {lastname}</div>
+                <div class="profile-name">{city}, {state}</div>
             </div>
             <div class="data-div">
                 <div class="graph-div">
                     <Doughnut data={data} />
                 </div>
                 <div class="text-div">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac convallis velit. Donec ac enim sit amet ligula aliquet malesuada ut in nulla. Duis tincidunt odio libero, a blandit ex finibus et.</p>
                 </div>
             </div>
         </div>
