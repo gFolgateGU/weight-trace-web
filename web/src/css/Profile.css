@@ -11,7 +11,7 @@ body {
 .black-div1 {
     width: 100%;
     background-color: black;
-    height: 20px
+    height: 20px;
 }
 
 .black-div {
@@ -41,25 +41,38 @@ body {
 /* Styles for the container div */
 .data-div {
     display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    height: auto; /* Adjust height to fit content */
+    margin: 20px 0; /* Add margin to create space between profile-container and data-div */
+    padding: 0; /* Remove default padding */
 }
 
 /* Styles for the graph div */
 .graph-div {
-    width: 50%; /* Take up 50% of the container width */
-    height: 100vh; /* Take up full height of the viewport */
-    padding: 20px; /* Add padding */
-    box-sizing: border-box; /* Include padding in width */
-}
-
-/* Styles for the text div */
-.text-div {
-    width: 50%; /* Take up 50% of the container width */
-    padding: 20px; /* Add padding */
-    box-sizing: border-box; /* Include padding in width */
-}
-
-/* Additional styles for the paragraph */
-.text-div p {
+    display: flex; 
+    justify-content: center; /* Center the chart horizontally within graph-div */
+    align-items: center; /* Center the chart vertically within graph-div */
+    height: auto; /* Adjust the height to fit the content */
     margin: 0; /* Remove default margin */
-    font-size: 16px; /* Adjust font size as needed */
+    padding: 20px; /* Remove default padding */
+}
+
+/* Styles for the summary-table */
+.summary-table {
+    width: 80%; /* Ensure full width for horizontal centering */
+    margin-top: 20px; /* Add margin to create space between doughnut chart and table */
+}
+
+/* Table styles */
+.summary-table table {
+    width: 100%;
+    border-collapse: collapse; /* Make table borders collapse into a single border */
+}
+
+.summary-table th, .summary-table td {
+    border: 1px solid black; /* Add border to table cells */
+    padding: 8px; /* Add padding to table cells */
+    text-align: left; /* Align text to the left */
 }
