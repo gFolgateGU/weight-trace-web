@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 
 import Home from './pages';
 import About from './pages/about';
+import Activities from './pages/activities';
 import Contact from './pages/contact';
 import WebTokenGen from './components/WebTokenGen';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<Home tokenMgr={tokenMgr}/>} />
         <Route path='/about' element={<About tokenMgr={tokenMgr} />} />
         <Route path='/contact' element={<Contact/>} />
+        <Route path='/activities' element={<Activities/>} />
     </Routes>
     </BrowserRouter>
   );

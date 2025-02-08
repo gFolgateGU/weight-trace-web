@@ -76,6 +76,7 @@ export default function NavBar({ tokenMgr }) {
       <a className="active" href="/">Home</a>
       <a href="/about">About</a>
       <a href="/contact">Contact</a>
+      <a href="/activities">Activities</a>
       <div className="login-container">
         {userLoggedIn ? renderAuthLinks() : renderNoAuthLinks()}
       </div>
